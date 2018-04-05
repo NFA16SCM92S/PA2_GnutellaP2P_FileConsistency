@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<project>
+    <!-- Java sources -->
+	<property name="src.dir" location="src/p2p" />
+	
+	<!-- Java classes -->
+	<property name="build.dir" location="bin/classes" />
+	
+	<!-- Output, Jar -->
+	<property name="jar.dir" location="bin/jar" />
+	
+	<property name="jar.file" location="bin/jar/MainP2P.jar"/>
+	<property name="testjar.file" location="bin/jar/TestP2P.jar"/>
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Create the build directory structure used by compile and jar -->
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${jar.dir}"/>	
+	</target>
+    
+    <target name="compile">
+        <mkdir dir="${build.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false"/>
+    </target>
+    
+    <target name="jar">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${testjar.file}" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="p2p.TestP2P"/>
+            </manifest>
+        </jar>
+    </target>
+    
+    <target name="run">
+        <java jar="${testjar.file}" fork="true">
+            <arg value="${arg0}"/>
+            <arg value="${arg1}"/>
+        </java>
+    </target>
+    
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${jar.dir}"/>
+    </target>
+
+</project>
